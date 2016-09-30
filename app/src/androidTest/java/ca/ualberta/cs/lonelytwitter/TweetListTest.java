@@ -56,7 +56,7 @@ public class TweetListTest extends ActivityInstrumentationTestCase2{
         list.addTweet(tweet);
         assertTrue(list.hasTweet(tweet));
     }
-    
+
     public void testAddTweetThrowsException() {
         TweetList list = new TweetList();
         Tweet tweet = new NormalTweet("test");
@@ -70,12 +70,19 @@ public class TweetListTest extends ActivityInstrumentationTestCase2{
         Tweet tweet2 = new NormalTweet("test");
         Tweet tweet3 = new NormalTweet("test");
 
-        list.addTweet(tweet1);
+        // need to set the date otherwise evil
+        tweet1.setDate(new Date(2016, 01, 01));
+        tweet2.setDate(new Date(2017, 01, 01));
+        tweet3.setDate(new Date(2018, 01, 01));
+
         list.addTweet(tweet3);
         list.addTweet(tweet2);
+        list.addTweet(tweet1);
 
         List<Tweet> expectedTweets = Arrays.asList(tweet1, tweet2, tweet3);
         List<Tweet> actualTweets = list.getTweets();
-        assertEquals(actualTweets, expectedTweets);
+
+        assertEquals(tweet1, actualTweets.get(0));
+        assertEquals(expectedTweets, actualTweets);
     }
 }
