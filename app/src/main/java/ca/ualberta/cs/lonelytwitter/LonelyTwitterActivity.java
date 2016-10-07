@@ -1,3 +1,11 @@
+/*
+Copyright (c) 2016 Team 20, CMPUT 301, University of Alberta - All Rights Reserved.
+You may use, copy or distribute this code under terms and conditions of University of Alberta
+and Code of Student Behavior.
+
+Please contact www.askalburg.com for more details or queestions.
+*/
+
 package ca.ualberta.cs.lonelytwitter;
 
 import java.io.BufferedReader;
@@ -28,6 +36,9 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+/**
+ * The type Lonely twitter activity.
+ */
 public class LonelyTwitterActivity extends Activity {
 
 	private static final String FILENAME = "file.sav";
@@ -124,6 +135,9 @@ public class LonelyTwitterActivity extends Activity {
 		AppIndex.AppIndexApi.start(client, viewAction);
 	}
 
+	/**
+	 * loads from file which is global variable FILENAME, depends on gson
+	 */
 	private void loadFromFile() {
 		ArrayList<String> tweets = new ArrayList<String>();
 		try {
@@ -150,6 +164,9 @@ public class LonelyTwitterActivity extends Activity {
 //		return tweets.toArray(new String[tweets.size()]);
 	}
 
+	/**
+	 * saves tweetlist to FILENAME using gson
+	 */
 //	private void saveInFile(String text, Date date) {
 	private void saveInFile() {
 		try {
