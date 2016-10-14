@@ -22,9 +22,11 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,6 +53,10 @@ public class LonelyTwitterActivity extends Activity {
 	 * See https://g.co/AppIndexing/AndroidStudio for more information.
 	 */
 	private GoogleApiClient client;
+
+	public ListView getOldTweetsList() {
+		return oldTweetsList;
+	}
 
 	/**
 	 * Called when the activity is first created.
@@ -106,6 +112,14 @@ public class LonelyTwitterActivity extends Activity {
 		// ATTENTION: This was auto-generated to implement the App Indexing API.
 		// See https://g.co/AppIndexing/AndroidStudio for more information.
 		client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
+		oldTweetsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				Intent intent = new Intent(LonelyTwitterActivity.this, EditTweetActivity.class);
+				startActivity(intent);
+				intent.putExtra("tweet", (Tweet) oldTweetsList.getItemAtPosition(position));
+			}
+		});
 	}
 
 	@Override
@@ -119,7 +133,7 @@ public class LonelyTwitterActivity extends Activity {
  		loadFromFile();
 		this.tweetAdapter = new ArrayAdapter<Tweet>(this,
 				R.layout.list_item, tweetList);
-		oldTweetsList.setAdapter(tweetAdapter);
+		oldTweetsList.setAdapter(this.tweetAdapter);
 		// ATTENTION: This was auto-generated to implement the App Indexing API.
 		// See https://g.co/AppIndexing/AndroidStudio for more information.
 		Action viewAction = Action.newAction(
